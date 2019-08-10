@@ -17,3 +17,7 @@
 const Route = use('Route')
 
 Route.post('/users', 'UserController.store')
+Route.get('/users', 'UserController.index')
+Route.get('/users/:userId/contacts', 'ContactController.index')
+Route.post('/users/:userId/contacts', 'ContactController.store')
+Route.delete('/users/:userId/contacts/:contactId', 'ContactController.destroy')
