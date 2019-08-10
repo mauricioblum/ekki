@@ -13,8 +13,8 @@ class User extends Model {
     return this.hasOne('App/Models/Account')
   }
 
-  contacts () {
-    return this.hasMany('App/Models/Contact')
+  transfers () {
+    return this.hasMany('App/Models/Transfer')
   }
 }
 

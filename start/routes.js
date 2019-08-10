@@ -18,6 +18,11 @@ const Route = use('Route')
 
 Route.post('/users', 'UserController.store')
 Route.get('/users', 'UserController.index')
+Route.get('/users/:id', 'UserController.show')
+
 Route.get('/users/:userId/contacts', 'ContactController.index')
-Route.post('/users/:userId/contacts', 'ContactController.store')
+Route.put('/users/:userId/contacts/:contactId', 'ContactController.update')
+Route.put('/users/:userId/contacts/add/:contactId', 'ContactController.store')
 Route.delete('/users/:userId/contacts/:contactId', 'ContactController.destroy')
+
+Route.post('/users/:userId/transfer/:contactId', 'TransferController.store')

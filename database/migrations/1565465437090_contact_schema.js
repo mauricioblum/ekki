@@ -14,9 +14,6 @@ class ContactSchema extends Schema {
         .inTable('users')
         .onUpdate('CASCADE')
         .onDelete('SET NULL')
-      table.string('name', 80).notNullable()
-      table.bigInteger('cpf', 12).notNullable().unique()
-      table.string('phone', 60)
       table.timestamps()
     })
   }

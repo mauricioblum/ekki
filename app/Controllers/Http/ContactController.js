@@ -19,11 +19,30 @@ class ContactController {
   }
 
   async store ({ request, response, params }) {
-    const data = request.only(['user_id', 'name', 'cpf', 'phone'])
+    const user = await User.findOrFail(params.userId)
+    const contact = await User.findOrFail(params.contactId)
 
-    const contact = await Contact.create({ ...data, user_id: params.userId })
+    if (user && contact) {
+      if (user.contacts !== null) {
+        const userContacts = user.contacts.split(',')
+        userContacts.push(contact.id)
 
-    return contact
+        user.contacts = userContacts.toString()
+
+        await user.save()
+
+        return user
+      } else {
+        const userContacts = []
+        userContacts.push(contact.id)
+
+        user.contacts = userContacts.toString()
+
+        await user.save()
+
+        return user
+      }
+    }
   }
 
   /**
