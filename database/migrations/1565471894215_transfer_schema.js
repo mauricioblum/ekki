@@ -15,13 +15,14 @@ class TransferSchema extends Schema {
         .onUpdate('CASCADE')
         .onDelete('SET NULL')
       table
-        .integer('contact_id')
+        .integer('beneficiary_id')
         .unsigned()
         .references('id')
-        .inTable('contacts')
+        .inTable('users')
         .onUpdate('CASCADE')
         .onDelete('SET NULL')
       table.decimal('amount').notNullable()
+      table.string('status')
       table.timestamps()
     })
   }

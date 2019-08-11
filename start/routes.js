@@ -25,4 +25,4 @@ Route.put('/users/:userId/contacts/:contactId', 'ContactController.update')
 Route.put('/users/:userId/contacts/add/:contactId', 'ContactController.store')
 Route.delete('/users/:userId/contacts/:contactId', 'ContactController.destroy')
 
-Route.post('/users/:userId/transfer/:contactId', 'TransferController.store')
+Route.post('/users/:userId/transfer/:beneficiaryId', 'TransferController.store')
