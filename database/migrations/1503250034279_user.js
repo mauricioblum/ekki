@@ -10,7 +10,6 @@ class UserSchema extends Schema {
       table.string('name', 80).notNullable()
       table.bigInteger('cpf', 12).notNullable().unique()
       table.string('phone', 60)
-      table.string('contacts')
       table.timestamps()
     })
   }
