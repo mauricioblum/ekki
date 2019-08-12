@@ -7,7 +7,7 @@ export function* getUser(action) {
   try {
     const user = yield call(api.get, `/users?cpf=${action.cpf}`);
     yield put(UserActions.getUserSuccess(user.data[0]));
-    action.history.push(`/wallet`);
+    action.history.push(`/user`);
   } catch (err) {
     yield put(UserActions.getUserFailure('Erro ao capturar dados do usuário!'));
   }
