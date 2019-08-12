@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { useDispatch } from 'react-redux';
 import {
   Box,
   Typography,
@@ -8,17 +8,16 @@ import {
   TextField,
   Button,
 } from '@material-ui/core';
-import { getUserByCpf } from '../../services/userService';
+import { Types as UserTypes } from '../../store/ducks/user';
+
 import { LoginBox, AppContainer } from './styles';
 
 export default function Home({ history }) {
   const [inputCpf, setInputCpf] = useState('');
+  const dispatch = useDispatch();
 
   async function getUser(cpf) {
-    const user = await getUserByCpf(cpf);
-    console.log(user);
-
-    history.push(`/wallet/${user.id}`);
+    dispatch({ type: UserTypes.GET_USER_REQUEST, cpf, history });
   }
 
   return (

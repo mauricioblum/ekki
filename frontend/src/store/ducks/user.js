@@ -33,8 +33,9 @@ export default function user(state = INITIAL_STATE, action) {
 
 // actions
 export const Creators = {
-  getUserRequest: () => ({
+  getUserRequest: (cpf, history) => ({
     type: Types.GET_USER_REQUEST,
+    payload: { cpf, history },
   }),
 
   getUserSuccess: data => ({
