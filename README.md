@@ -2,12 +2,21 @@
 
 ## Introduction
 
-> Digital Wallet Full Stack NodeJS and React application
+Digital Wallet Full Stack NodeJS and React application
 
-## Code Samples
 
-## Installation
+## Installation and Run Instructions
 
-> AdonisJS Node
+AdonisJS Node Backend
 
-## Run
+> npm install
+
+> adonis migration:run
+
+> adonis serve --dev
+
+React app
+
+> yarn install
+
+> yarn start
