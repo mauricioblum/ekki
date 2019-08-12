@@ -37,17 +37,43 @@ class ContactController {
    * @param {Response} ctx.response
    */
   async store ({ request, response, params }) {
-    const owner = await User.findOrFail(params.ownerId)
-    const user = await User.findOrFail(params.userId)
-    const data = {
-      name: owner.name,
-      cpf: owner.cpf,
-      phone: owner.phone
+    const { cpf, name } = request.get()
+    if (cpf || name) {
+      let owner
+      if (name !== undefined) {
+        owner = await User.query().whereRaw(`name ILIKE '${name}%'`).first()
+      } else {
+        owner = await User.query().whereRaw(`cpf = ${cpf}`).first()
+      }
+
+      const contact = new Contact()
+
+      const user = await User.findOrFail(params.userId)
+
+      contact.fill({
+        owner_id: owner.id,
+        user_id: user.id,
+        name: owner.name,
+        cpf: owner.cpf,
+        phone: owner.phone
+      })
+
+      await contact.save()
+
+      return contact
+    } else {
+      const owner = await User.findOrFail(params.ownerId)
+      const user = await User.findOrFail(params.userId)
+      const data = {
+        name: owner.name,
+        cpf: owner.cpf,
+        phone: owner.phone
+      }
+
+      const contact = Contact.create({ ...data, owner_id: owner.id, user_id: user.id })
+
+      return contact
     }
-
-    const contact = Contact.create({ ...data, owner_id: owner.id, user_id: user.id })
-
-    return contact
   }
 
   /**

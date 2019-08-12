@@ -21,7 +21,7 @@ Route.get('/users', 'UserController.index')
 Route.get('/users/:id', 'UserController.show')
 
 Route.get('/users/:userId/contacts', 'ContactController.index')
-Route.post('/users/:userId/contacts/add/:ownerId', 'ContactController.store')
+Route.post('/users/:userId/contacts/add', 'ContactController.store')
 Route.delete('/users/:userId/contacts/:contactId', 'ContactController.destroy')
 
 Route.post('/users/:userId/transfer/:beneficiaryId', 'TransferController.store')
