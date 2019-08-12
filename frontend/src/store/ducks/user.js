@@ -22,7 +22,7 @@ export default function user(state = INITIAL_STATE, action) {
         ...state,
         loading: false,
         error: null,
-        data: [...state.data, action.payload.data],
+        data: action.payload.data,
       };
     case Types.GET_USER_FAILURE:
       return { ...state, loading: false, error: action.payload.error };

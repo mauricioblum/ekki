@@ -1,5 +1,5 @@
-import React from 'react';
-
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
   Box,
   Typography,
@@ -11,14 +11,15 @@ import {
 import { AppContainer, Panel } from './styles';
 
 export default function Wallet() {
+  const user = useSelector(state => state.user.data);
   return (
     <AppContainer maxWidth="sm">
       <Grid container justify="center" spacing={2} alignItems="center">
         <Grid item xs={12}>
           <Panel>
-            <Typography align="center">Bem vindo User!</Typography>
-            <Typography>Saldo: R$ 1000,00</Typography>
-            <Typography>Limite: R$ 500,00</Typography>
+            <Typography align="center">Bem vindo {user.name}</Typography>
+            <Typography>Saldo: R$ {user.account.balance}</Typography>
+            <Typography>Limite: R$ {user.account.limit}</Typography>
           </Panel>
         </Grid>
       </Grid>
