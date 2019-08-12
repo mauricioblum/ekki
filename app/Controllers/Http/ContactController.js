@@ -4,45 +4,50 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const Contact = use('App/Models/Contact')
-const User = use('App/Models/User')
-
 /**
  * Resourceful controller for interacting with contacts
  */
+
+const Contact = use('App/Models/Contact')
+const User = use('App/Models/User')
+
 class ContactController {
-  async index ({ params, response, view }) {
+  /**
+   * Show a list of all contacts.
+   * GET contacts
+   *
+   * @param {object} ctx
+   * @param {Request} ctx.request
+   * @param {Response} ctx.response
+   * @param {View} ctx.view
+   */
+  async index ({ request, response, params }) {
     const contacts = await Contact.query()
       .where('user_id', params.userId).fetch()
 
     return contacts
   }
 
+  /**
+   * Create/save a new contact.
+   * POST contacts
+   *
+   * @param {object} ctx
+   * @param {Request} ctx.request
+   * @param {Response} ctx.response
+   */
   async store ({ request, response, params }) {
+    const owner = await User.findOrFail(params.ownerId)
     const user = await User.findOrFail(params.userId)
-    const contact = await User.findOrFail(params.contactId)
-
-    if (user && contact) {
-      if (user.contacts !== null) {
-        const userContacts = user.contacts.split(',')
-        userContacts.push(contact.id)
-
-        user.contacts = userContacts.toString()
-
-        await user.save()
-
-        return user
-      } else {
-        const userContacts = []
-        userContacts.push(contact.id)
-
-        user.contacts = userContacts.toString()
-
-        await user.save()
-
-        return user
-      }
+    const data = {
+      name: owner.name,
+      cpf: owner.cpf,
+      phone: owner.phone
     }
+
+    const contact = Contact.create({ ...data, owner_id: owner.id, user_id: user.id })
+
+    return contact
   }
 
   /**
@@ -55,7 +60,6 @@ class ContactController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
-
   }
 
   /**
@@ -67,17 +71,7 @@ class ContactController {
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
-    const data = request.only(['name', 'cpf', 'phone'])
 
-    const contact = await Contact.query()
-      .where('user_id', params.userId)
-      .where('id', params.contactId).first()
-
-    contact.merge(data)
-
-    await contact.save()
-
-    return contact
   }
 
   /**

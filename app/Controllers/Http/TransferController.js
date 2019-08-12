@@ -21,7 +21,10 @@ class TransferController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
+  async index ({ request, response, params }) {
+    const transfers = await Transfer.query().with('user').where('user_id', params.userId).fetch()
+
+    return transfers
   }
 
   /**
@@ -40,10 +43,22 @@ class TransferController {
 
       const lastTransfer = await Transfer.query().where('user_id', params.userId).last()
 
+      const transfer = new Transfer()
+      transfer.fill({ amount,
+        status: 'IN_PROGRESS',
+        user_id: params.userId,
+        beneficiary_id: params.beneficiaryId })
+
       if (lastTransfer &&
         parseFloat(lastTransfer.amount) === amount &&
         moment().subtract('2', 'minutes').isBefore(lastTransfer.created_at)) {
         console.log('Use this transfer and cancel the previous one')
+        lastTransfer.status = 'CANCELLED'
+        await lastTransfer.save()
+        userAccount.balance = parseFloat(userAccount.balance) + amount
+        await userAccount.save()
+        destinationAccount.balance = parseFloat(destinationAccount.balance) - amount
+        await destinationAccount.save()
       } else {
         console.log('New transfer')
       }
@@ -55,13 +70,15 @@ class TransferController {
         userAccount.limit -= amount
         await userAccount.save()
       } else {
-        Transfer.create({ amount, status: 'REJECTED', user_id: params.userId, beneficiary_id: params.beneficiaryId })
+        transfer.merge({ status: 'REJECTED' })
+        await transfer.save()
         return response.status(401).send({ error: { message: 'Saldo insuficiente!' } })
       }
 
       destinationAccount.balance = parseFloat(destinationAccount.balance) + amount
       await destinationAccount.save()
-      const transfer = Transfer.create({ amount, status: 'COMPLETED', user_id: params.userId, beneficiary_id: params.beneficiaryId })
+      transfer.merge({ status: 'COMPLETED' })
+      await transfer.save()
 
       return transfer
     } catch (err) {
@@ -113,6 +130,7 @@ class TransferController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
+
   }
 }
 

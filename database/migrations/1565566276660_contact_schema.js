@@ -8,12 +8,22 @@ class ContactSchema extends Schema {
     this.create('contacts', (table) => {
       table.increments()
       table
+        .integer('owner_id')
+        .unsigned()
+        .references('id')
+        .inTable('users')
+        .onUpdate('CASCADE')
+        .onDelete('SET NULL')
+      table
         .integer('user_id')
         .unsigned()
         .references('id')
         .inTable('users')
         .onUpdate('CASCADE')
         .onDelete('SET NULL')
+      table.string('name', 80).notNullable()
+      table.bigInteger('cpf', 12).notNullable().unique()
+      table.string('phone', 60)
       table.timestamps()
     })
   }

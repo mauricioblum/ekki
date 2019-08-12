@@ -7,6 +7,7 @@ class UserController {
   async index ({ params }) {
     const users = User.query()
       .with('account')
+      .with('contacts')
       .fetch()
 
     return users

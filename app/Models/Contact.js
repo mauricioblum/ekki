@@ -2,11 +2,14 @@
 
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
-const User = use('App/Models/User')
 
-class Contact extends User {
+class Contact extends Model {
   static boot () {
     super.boot()
+  }
+
+  user () {
+    return this.belongsTo('App/Models/User')
   }
 }
 

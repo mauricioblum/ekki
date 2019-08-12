@@ -2,7 +2,6 @@
 
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
-const Account = use('App/Models/Account')
 
 class User extends Model {
   static boot () {
@@ -15,6 +14,10 @@ class User extends Model {
 
   transfers () {
     return this.hasMany('App/Models/Transfer')
+  }
+
+  contacts () {
+    return this.hasMany('App/Models/Contact')
   }
 }
 
