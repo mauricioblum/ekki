@@ -4,19 +4,25 @@ const User = use('App/Models/User')
 const Account = use('App/Models/Account')
 
 class UserController {
-  async index ({ params }) {
-    const users = User.query()
-      .with('account')
-      .with('contacts')
-      .fetch()
+  async index ({ params, request }) {
+    const { cpf } = request.get()
+    if (cpf) {
+      const user = await User.query().with('account').with('contacts').where('cpf', cpf).fetch()
+      return user
+    } else {
+      const users = User.query()
+        .with('account')
+        .with('contacts')
+        .fetch()
 
-    return users
+      return users
+    }
   }
 
   async store ({ request }) {
     const data = request.only(['name', 'cpf', 'phone'])
 
-    const user = await User.create({ ...data, contacts: '' })
+    const user = await User.create({ ...data })
     const account = new Account()
     account.user_id = user.id
     const currentAccountNumber = await Account.query().count('* as total')
@@ -31,7 +37,6 @@ class UserController {
 
   async show ({ params }) {
     const user = await User.query().with('account').with('contacts').where('id', params.id).fetch()
-
     return user
   }
 }

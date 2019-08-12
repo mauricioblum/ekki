@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Box, Container } from '@material-ui/core';
 
-export const LoginBox = styled(Box)`
+export const Panel = styled(Box)`
   border: 2px solid #4fa444;
   border-radius: 20px;
   height: 300px;
