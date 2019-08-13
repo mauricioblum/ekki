@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Box,
   Typography,
   Grid,
-  FormControl,
-  TextField,
   Button,
   TableBody,
   TableCell,
@@ -29,8 +26,6 @@ export default function Contacts({ history }) {
   const [openForm, setOpenForm] = useState(false);
   const dispatch = useDispatch();
   const [openToast, setOpenToast] = useState(false);
-  const [variantToast, setVariantToast] = useState('success');
-  const [toastMessage, setToastMessage] = useState('');
 
   function handleCloseToast(event, reason) {
     if (reason === 'clickaway') {

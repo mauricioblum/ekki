@@ -1,6 +1,7 @@
 import Immutable from 'seamless-immutable';
 
 export const Types = {
+  LOAD_USER_DATA: 'user/LOAD_USER_DATA',
   GET_USER_REQUEST: 'user/GET_USER_REQUEST',
   GET_USER_SUCCESS: 'user/GET_USER_SUCCESS',
   GET_USER_FAILURE: 'user/GET_USER_FAILURE',
@@ -21,6 +22,8 @@ const INITIAL_STATE = Immutable({
 
 export default function user(state = INITIAL_STATE, action) {
   switch (action.type) {
+    case Types.LOAD_USER_DATA:
+      return { ...state, loading: true };
     case Types.GET_USER_REQUEST:
       return { ...state, loading: true };
     case Types.GET_USER_SUCCESS:
@@ -39,7 +42,7 @@ export default function user(state = INITIAL_STATE, action) {
         ...state,
         loading: false,
         error: null,
-};
+      };
     case Types.ADD_USER_CONTACT_FAILURE:
       return {
         ...state,
@@ -68,11 +71,14 @@ export default function user(state = INITIAL_STATE, action) {
 
 // actions
 export const Creators = {
+  loadUserData: id => ({
+    type: Types.LOAD_USER_DATA,
+    payload: { id },
+  }),
   getUserRequest: (cpf, history) => ({
     type: Types.GET_USER_REQUEST,
     payload: { cpf, history },
   }),
-
   getUserSuccess: data => ({
     type: Types.GET_USER_SUCCESS,
     payload: { data },

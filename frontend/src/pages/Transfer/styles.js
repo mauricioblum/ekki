@@ -1,16 +1,18 @@
 import styled from 'styled-components';
-import { Box, Container } from '@material-ui/core';
+import { Box, Container, Grid } from '@material-ui/core';
 
-export const Panel = styled(Box)`
+export const Panel = styled(Grid).attrs({
+  container: true,
+  justify: 'space-between',
+  alignItems: 'center',
+  direction: 'column',
+  spacing: 4,
+})`
   border: 2px solid #4fa444;
   border-radius: 20px;
   height: auto;
   width: 100%;
   padding: 15px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 `;
 
 export const AppContainer = styled(Container)`

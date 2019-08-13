@@ -7,6 +7,16 @@ import {
 
 import { Creators as UserActions } from '../ducks/user';
 
+export function* loadUser(action) {
+  try {
+    const user = yield call(api.get, `/users/${action.id}`);
+    yield put(UserActions.getUserSuccess(user.data[0]));
+    action.history.push(`/user`);
+  } catch (err) {
+    yield put(UserActions.getUserFailure('Erro ao capturar dados do usuário!'));
+  }
+}
+
 export function* getUser(action) {
   try {
     const user = yield call(api.get, `/users?cpf=${action.cpf}`);

@@ -18,7 +18,7 @@ export default function Wallet({ history }) {
         <Grid item xs={12}>
           <Panel>
             <Typography align="center" variant="h5">
-              Bem vindo à sua carteira {user.name}
+              Bem vindo à sua carteira, {user.name}
             </Typography>
             <Box my={4}>
               <Typography align="center" variant="h6">
@@ -36,7 +36,7 @@ export default function Wallet({ history }) {
                 justify="space-between"
                 alignItems="center"
               >
-                <Grid item xs={6}>
+                <Grid item xs={4}>
                   <Button
                     color="primary"
                     variant="contained"
@@ -45,8 +45,21 @@ export default function Wallet({ history }) {
                     Contatos
                   </Button>
                 </Grid>
-                <Grid item xs={6}>
-                  <Button color="primary" variant="contained">
+                <Grid item xs={4}>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    onClick={() => history.push('/user/extracts')}
+                  >
+                    Extratos
+                  </Button>
+                </Grid>
+                <Grid item xs={4}>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    onClick={() => history.push('/user/transfer')}
+                  >
                     Transferir
                   </Button>
                 </Grid>
