@@ -9,6 +9,7 @@ import {
   Button,
   Paper,
 } from '@material-ui/core';
+import moment from 'moment';
 
 export default function Receipt({ open, handleClose, destination }) {
   const transfer = useSelector(state => state.transfers.data);
@@ -26,7 +27,9 @@ export default function Receipt({ open, handleClose, destination }) {
           <DialogContentText>Comprovante de transferência</DialogContentText>
           <DialogContentText>Valor: R$ {transfer.amount}</DialogContentText>
           <DialogContentText>Para: {destination}</DialogContentText>
-          <DialogContentText>Data: {transfer.created_at}</DialogContentText>
+          <DialogContentText>
+            Data: {moment(transfer.created_at).format('DD/MM/YYYY HH:mm')}
+          </DialogContentText>
         </Paper>
       </DialogContent>
       <DialogActions>
