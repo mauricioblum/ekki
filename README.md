@@ -1,22 +1,31 @@
 # Ekki
 
-## Introduction
-
 Digital Wallet Full Stack NodeJS and React application
 
 
 ## Installation and Run Instructions
 
-AdonisJS Node Backend
+### AdonisJS Node Backend
 
-> npm install
+Run the following commands in the terminal in the /backend folder
 
-> adonis migration:run
+```
+npm install
 
-> adonis serve --dev
+adonis migration:run
 
-React app
+adonis seed (If you want to create some users)
 
-> yarn install
+adonis serve --dev
 
-> yarn start
+```
+
+### React App Frontend
+
+Run the following commands in the terminal in the /frontend folder
+
+```
+yarn install
+
+yarn start
+```
