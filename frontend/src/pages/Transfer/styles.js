@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Box, Container, Grid } from '@material-ui/core';
+import { Container, Grid, Select } from '@material-ui/core';
 
 export const Panel = styled(Grid).attrs({
   container: true,
@@ -20,4 +20,8 @@ export const AppContainer = styled(Container)`
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+`;
+
+export const ContactSelect = styled(Select)`
+  width: 100%;
 `;

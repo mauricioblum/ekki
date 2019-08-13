@@ -9,7 +9,7 @@ import {
   TextField,
   InputAdornment,
 } from '@material-ui/core';
-import { AppContainer, Panel } from './styles';
+import { AppContainer, Panel, ContactSelect } from './styles';
 import Toast from '../../components/Toast';
 import { Types as TrasferTypes } from '../../store/ducks/transfer';
 import { Types as UserTypes } from '../../store/ducks/user';
@@ -107,21 +107,30 @@ export default function Transfer({ history }) {
               </Typography>
             </Grid>
             <Grid item>
-              <Typography align="center">Selecione o contato</Typography>
-              <Select
-                autoWidth
-                value={selectedContact}
-                onChange={e => handleChange(e)}
+              <Grid
+                container
+                justify="center"
+                alignItems="center"
+                direction="column"
               >
-                <MenuItem value={selectedContact} disabled>
-                  Selecione...
-                </MenuItem>
-                {user.contacts.map(contact => (
-                  <MenuItem key={contact.id} value={contact}>
-                    {contact.name}
+                <Typography align="center">
+                  Selecione o contato/favorecido
+                </Typography>
+                <ContactSelect
+                  variant="outlined"
+                  value={selectedContact}
+                  onChange={e => handleChange(e)}
+                >
+                  <MenuItem value={selectedContact} disabled>
+                    Selecione...
                   </MenuItem>
-                ))}
-              </Select>
+                  {user.contacts.map(contact => (
+                    <MenuItem key={contact.id} value={contact}>
+                      {contact.name}
+                    </MenuItem>
+                  ))}
+                </ContactSelect>
+              </Grid>
             </Grid>
             <Grid item>
               <TextField

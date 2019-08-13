@@ -22,7 +22,7 @@ class ContactSchema extends Schema {
         .onUpdate('CASCADE')
         .onDelete('SET NULL')
       table.string('name', 80).notNullable()
-      table.bigInteger('cpf', 12).notNullable().unique()
+      table.bigInteger('cpf', 12).notNullable()
       table.string('phone', 60)
       table.timestamps()
     })

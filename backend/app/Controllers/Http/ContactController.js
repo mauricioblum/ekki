@@ -58,6 +58,10 @@ class ContactController {
         phone: owner.phone
       })
 
+      if (user.id === owner.id) {
+        return response.status(401).send({ error: { message: 'Você não pode adicionar você mesmo!' } })
+      }
+
       await contact.save()
 
       return contact

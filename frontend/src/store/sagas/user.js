@@ -48,6 +48,7 @@ export function* addUserContact(action) {
     showSuccessToast('Contato adicionado com sucesso!');
     yield put(UserActions.addUserContactSuccess());
   } catch (err) {
+    showErrorToast(`Erro: ${err.response.data.error.message}`);
     yield put(
       UserActions.addUserContactFailure('Erro ao adicionar o contato!')
     );
@@ -68,6 +69,7 @@ export function* deleteUserContact(action) {
     showErrorToast('Contato removido com sucesso!');
     yield put(UserActions.deleteUserContactSuccess());
   } catch (err) {
+    showErrorToast(`Erro: ${err.response.data.error.message}`);
     yield put(
       UserActions.deleteUserContactFailure('Erro ao remover o contato!')
     );

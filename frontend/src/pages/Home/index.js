@@ -7,6 +7,7 @@ import {
   FormControl,
   TextField,
   Button,
+  CircularProgress,
 } from '@material-ui/core';
 import { Types as UserTypes } from '../../store/ducks/user';
 import api from '../../services/api';
@@ -21,6 +22,7 @@ export default function Home({ history }) {
   const [toastOpen, setToastOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
   const [toastVariant, setToastVariant] = useState('success');
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   function handleCloseToast(event, reason) {
@@ -39,17 +41,20 @@ export default function Home({ history }) {
   }
 
   async function registerUser(cpf, name, phone) {
+    setLoading(true);
     try {
+      setFormOpen(false);
       await api.post(`/users`, {
         name,
         cpf,
         phone,
       });
-      setFormOpen(false);
-      setToastOpen(true);
       setToastVariant('success');
       setToastMessage('Usuário cadastrado com sucesso!');
+      setLoading(false);
+      setToastOpen(true);
     } catch (err) {
+      setLoading(false);
       setToastOpen(true);
       setToastVariant('error');
       setToastMessage(`Erro: ${err.response.data.error.message}`);
@@ -65,38 +70,42 @@ export default function Home({ history }) {
               Bem vindo ao Ekki!
             </Typography>
           </Box>
-          <FormControl fullWidth>
-            <TextField
-              id="cpf"
-              type="number"
-              required
-              label="Digite o CPF para fazer o Login"
-              value={inputCpf}
-              onChange={e => setInputCpf(e.target.value)}
-            />
-            <Box mt={4}>
-              <Button
-                type="submit"
-                variant="outlined"
-                color="primary"
-                fullWidth
-                onClick={() => getUser(inputCpf)}
-              >
-                Entrar
-              </Button>
-              <Box my={2}>
+          {!loading ? (
+            <FormControl fullWidth>
+              <TextField
+                id="cpf"
+                type="number"
+                required
+                label="Digite o CPF para fazer o Login"
+                value={inputCpf}
+                onChange={e => setInputCpf(e.target.value)}
+              />
+              <Box mt={4}>
                 <Button
-                  type="button"
+                  type="submit"
                   variant="outlined"
                   color="primary"
                   fullWidth
-                  onClick={() => setFormOpen(true)}
+                  onClick={() => getUser(inputCpf)}
                 >
-                  Novo Usuário? Cadastrar
+                  Entrar
                 </Button>
+                <Box my={2}>
+                  <Button
+                    type="button"
+                    variant="outlined"
+                    color="primary"
+                    fullWidth
+                    onClick={() => setFormOpen(true)}
+                  >
+                    Novo Usuário? Cadastrar
+                  </Button>
+                </Box>
               </Box>
-            </Box>
-          </FormControl>
+            </FormControl>
+          ) : (
+            <CircularProgress color="primary" />
+          )}
         </LoginBox>
       </Grid>
       <Signup

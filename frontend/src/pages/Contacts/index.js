@@ -8,6 +8,7 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  CircularProgress,
 } from '@material-ui/core';
 import Toast from '../../components/Toast';
 import { Types as UserTypes } from '../../store/ducks/user';
@@ -85,16 +86,22 @@ export default function Contacts({ history }) {
           </Grid>
           <Grid item xs={12}>
             <Grid container justify="center" spacing={2} alignItems="center">
-              <Button color="primary" onClick={() => history.goBack()}>
-                Voltar
-              </Button>
-              <Button
-                color="primary"
-                variant="contained"
-                onClick={() => setOpenForm(true)}
-              >
-                Adicionar contato
-              </Button>
+              {!user.loading ? (
+                <>
+                  <Button color="primary" onClick={() => history.goBack()}>
+                    Voltar
+                  </Button>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    onClick={() => setOpenForm(true)}
+                  >
+                    Adicionar contato
+                  </Button>
+                </>
+              ) : (
+                <CircularProgress color="primary" />
+              )}
             </Grid>
           </Grid>
         </Grid>

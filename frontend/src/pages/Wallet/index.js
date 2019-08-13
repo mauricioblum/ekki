@@ -65,6 +65,15 @@ export default function Wallet({ history }) {
                 </Grid>
               </Grid>
             </Box>
+            <Box my={1}>
+              <Grid container justify="flex-end" alignItems="flex-end">
+                <Grid item xs={12}>
+                  <Button color="primary" onClick={() => history.goBack()}>
+                    Sair
+                  </Button>
+                </Grid>
+              </Grid>
+            </Box>
           </Panel>
         </Grid>
       </Grid>

@@ -36,6 +36,9 @@ class TransferController {
    * @param {Response} ctx.response
    */
   async store ({ request, response, params }) {
+    if (params.userId === params.beneficiaryId) {
+      return response.status(401).send({ error: { message: 'Você não pode transferir para você mesmo!' } })
+    }
     try {
       const amount = parseFloat(request.input('amount'))
       const userAccount = await Account.findByOrFail('user_id', params.userId)
