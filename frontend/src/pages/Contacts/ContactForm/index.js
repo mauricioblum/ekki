@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -10,9 +9,23 @@ import {
   TextField,
 } from '@material-ui/core';
 
-export default function ContactForm({ open, handleClose }) {
+export default function ContactForm({ open, handleClose, handleAdd }) {
   const [nameInput, setNameInput] = useState('');
   const [cpfInput, setCpfInput] = useState('');
+
+  function handleContacts() {
+    setCpfInput('');
+    setNameInput('');
+    handleAdd(cpfInput, nameInput);
+  }
+
+  useEffect(() => {
+    setCpfInput('');
+  }, [nameInput]);
+
+  useEffect(() => {
+    setNameInput('');
+  }, [cpfInput]);
 
   return (
     <Dialog
@@ -49,7 +62,11 @@ export default function ContactForm({ open, handleClose }) {
         <Button onClick={handleClose} color="primary">
           Cancelar
         </Button>
-        <Button onClick={handleClose} color="primary" variant="contained">
+        <Button
+          onClick={() => handleContacts()}
+          color="primary"
+          variant="contained"
+        >
           Adicionar
         </Button>
       </DialogActions>
