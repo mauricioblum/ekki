@@ -23,6 +23,7 @@ export default function Transfer({ history }) {
   });
   const [amount, setAmount] = useState(0);
   const user = useSelector(state => state.user.data);
+  const error = useSelector(state => state.user.error);
   const dispatch = useDispatch();
   const [openToast, setOpenToast] = useState(false);
   const [openReceipt, setOpenReceipt] = useState(false);
@@ -166,7 +167,7 @@ export default function Transfer({ history }) {
           hasBalance={user.account.limit > 0}
         />
         <Toast
-          withButton
+          withButton={!!error}
           open={openToast}
           handleClose={handleCloseToast}
           variant={NotificationStatus().variant}

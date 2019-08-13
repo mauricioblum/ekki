@@ -49,7 +49,7 @@ class TransferController {
         user_id: params.userId,
         beneficiary_id: params.beneficiaryId })
 
-      if (lastTransfer &&
+      if (lastTransfer && lastTransfer.status !== 'REJECTED' &&
         parseFloat(lastTransfer.amount) === amount &&
         moment().subtract('2', 'minutes').isBefore(lastTransfer.created_at)) {
         console.log('Use this transfer and cancel the previous one')
