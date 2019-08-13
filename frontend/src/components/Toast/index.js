@@ -7,7 +7,7 @@ import CloseIcon from '@material-ui/icons/Close';
 export default function Toast({
   open,
   handleClose,
-  variant,
+  variantType,
   message,
   withButton,
   handleViewReceipt,
@@ -23,7 +23,7 @@ export default function Toast({
       onClose={handleClose}
     >
       <SnackbarContent
-        variant={variant}
+        variant={variantType || 'inherit'}
         message={message}
         action={[
           withButton && (

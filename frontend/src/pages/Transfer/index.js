@@ -24,6 +24,7 @@ export default function Transfer({ history }) {
   const [amount, setAmount] = useState(0);
   const user = useSelector(state => state.user.data);
   const error = useSelector(state => state.user.error);
+  const transferError = useSelector(state => state.transfers.error);
   const dispatch = useDispatch();
   const [openToast, setOpenToast] = useState(false);
   const [openReceipt, setOpenReceipt] = useState(false);
@@ -64,9 +65,9 @@ export default function Transfer({ history }) {
       amount,
       history,
     });
-    setOpenToast(true);
     setAmount(0);
     setOpenAlert(false);
+    setOpenToast(true);
   }
 
   useEffect(() => {
@@ -170,8 +171,10 @@ export default function Transfer({ history }) {
           withButton={!!error}
           open={openToast}
           handleClose={handleCloseToast}
-          variant={NotificationStatus().variant}
-          message={NotificationStatus().message}
+          variantType={NotificationStatus().variant}
+          message={
+            transferError ? `${transferError}` : NotificationStatus().message
+          }
           handleViewReceipt={showReceipt}
         />
       </Grid>

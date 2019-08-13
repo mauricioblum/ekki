@@ -24,13 +24,11 @@ function NotificationStatus() {
 function showSuccessToast(m) {
   setVariant('success');
   setMessage(m);
-  return { variant, message };
 }
 
 function showErrorToast(m) {
   setVariant('error');
   setMessage(m);
-  return { variant, message };
 }
 
 export { NotificationStatus, showSuccessToast, showErrorToast };

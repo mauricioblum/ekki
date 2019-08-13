@@ -25,7 +25,10 @@ export function* makeTransfer(action) {
     showSuccessToast('Transferencia concluida com sucesso!');
     // action.history.push('/user');
   } catch (err) {
-    showErrorToast(`Erro! ${err.data.error.message}`);
-    yield put(TransferActions.transferFailure('Erro ao transferir!'));
+    yield put(
+      TransferActions.transferFailure(
+        `Erro! ${err.response.data.error.message}`
+      )
+    );
   }
 }

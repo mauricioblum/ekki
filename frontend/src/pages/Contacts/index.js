@@ -107,7 +107,7 @@ export default function Contacts({ history }) {
       <Toast
         open={openToast}
         handleClose={handleCloseToast}
-        variant={NotificationStatus().variant}
+        variantType={NotificationStatus().variant}
         message={NotificationStatus().message}
       />
     </AppContainer>
