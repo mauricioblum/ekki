@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import {
   Box,
@@ -14,7 +15,7 @@ import api from '../../services/api';
 
 import { LoginBox, AppContainer } from './styles';
 import Signup from './Signup';
-import Toast from '../../components/Toast';
+import { Toast } from '../../components/Toast';
 
 export default function Home({ history }) {
   const [inputCpf, setInputCpf] = useState('');
@@ -122,3 +123,9 @@ export default function Home({ history }) {
     </AppContainer>
   );
 }
+
+Home.propTypes = {
+  history: PropTypes.shape({
+    goBack: PropTypes.func,
+  }).isRequired,
+};

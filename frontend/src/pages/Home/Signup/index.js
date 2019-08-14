@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import {
   Dialog,
   DialogTitle,
@@ -7,7 +8,6 @@ import {
   DialogContentText,
   Button,
   TextField,
-  FormControl,
   FormHelperText,
 } from '@material-ui/core';
 
@@ -105,3 +105,9 @@ export default function Signup({ open, handleClose, handleAdd }) {
     </Dialog>
   );
 }
+
+Signup.propTypes = {
+  open: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  handleAdd: PropTypes.func.isRequired,
+};

@@ -1,13 +1,7 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  Box,
-  Typography,
-  Grid,
-  FormControl,
-  TextField,
-  Button,
-} from '@material-ui/core';
+import { Typography, Grid, Button } from '@material-ui/core';
 import moment from 'moment';
 import MUIDataTable from 'mui-datatables';
 import { Types as ExtractTypes } from '../../store/ducks/extract';
@@ -49,15 +43,17 @@ export default function Extract({ history }) {
       options: {
         filter: true,
         customBodyRender: value => {
-          switch(value){
+          switch (value) {
             case 'COMPLETED':
-              return 'CONCLUÍDA'
+              return 'CONCLUÍDA';
             case 'CANCELLED':
-              return 'CANCELADA'
+              return 'CANCELADA';
             case 'REJECTED':
-              return 'RECUSADA'
+              return 'RECUSADA';
             case 'IN_PROGRESS':
-              return 'EM ANDAMENTO'
+              return 'EM ANDAMENTO';
+            default:
+              return 'IN_PROGRESS';
           }
         },
       },
@@ -69,8 +65,9 @@ export default function Extract({ history }) {
     print: false,
     download: false,
     rowsPerPage: 5,
+    rowsPerPageOptions: [5, 10],
     selectableRows: 'none',
-    responsive: 'scroll',
+    responsive: 'stacked',
     textLabels: {
       body: {
         noMatch: 'Você ainda não tem transferências',
@@ -79,7 +76,7 @@ export default function Extract({ history }) {
       pagination: {
         next: 'Próxima',
         previous: 'Anterior',
-        rowsPerPage: '',
+        rowsPerPage: 'Linhas por página',
         displayRows: 'de',
       },
       toolbar: {
@@ -104,7 +101,7 @@ export default function Extract({ history }) {
   }, [dispatch, user.id]);
   return (
     <AppContainer maxWidth="sm">
-      <Grid container justify="center" spacing={2} alignItems="center">
+      <Grid container justify="center" alignItems="center">
         <Grid item xs={12}>
           <Panel>
             <Typography variant="h5">Transferências</Typography>
@@ -131,3 +128,9 @@ export default function Extract({ history }) {
     </AppContainer>
   );
 }
+
+Extract.propTypes = {
+  history: PropTypes.shape({
+    goBack: PropTypes.func,
+  }).isRequired,
+};

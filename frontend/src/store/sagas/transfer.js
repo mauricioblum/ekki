@@ -25,6 +25,7 @@ export function* makeTransfer(action) {
     showSuccessToast('Transferencia concluida com sucesso!');
     // action.history.push('/user');
   } catch (err) {
+    showErrorToast('Ocorreu algum problema ao transferir!');
     yield put(
       TransferActions.transferFailure(
         `Erro! ${err.response.data.error.message}`

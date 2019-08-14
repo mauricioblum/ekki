@@ -1,13 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import {
-  Box,
-  Typography,
-  Grid,
-  FormControl,
-  TextField,
-  Button,
-} from '@material-ui/core';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { Box, Typography, Grid, Button } from '@material-ui/core';
 import { AppContainer, Panel } from './styles';
 
 export default function Wallet({ history }) {
@@ -28,15 +23,17 @@ export default function Wallet({ history }) {
               <Typography>Saldo: R$ {user.account.balance}</Typography>
               <Typography>Limite: R$ {user.account.limit}</Typography>
             </Box>
-
             <Box my={4}>
               <Grid
                 spacing={4}
                 container
-                justify="space-between"
+                direction={
+                  useMediaQuery('(max-width:768px)') ? 'column' : 'row'
+                }
+                justify="center"
                 alignItems="center"
               >
-                <Grid item xs={4}>
+                <Grid item xs={12} md={4}>
                   <Button
                     color="primary"
                     variant="contained"
@@ -45,7 +42,7 @@ export default function Wallet({ history }) {
                     Contatos
                   </Button>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={12} md={4}>
                   <Button
                     color="primary"
                     variant="contained"
@@ -54,7 +51,7 @@ export default function Wallet({ history }) {
                     Extratos
                   </Button>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={12} md={4}>
                   <Button
                     color="primary"
                     variant="contained"
@@ -80,3 +77,10 @@ export default function Wallet({ history }) {
     </AppContainer>
   );
 }
+
+Wallet.propTypes = {
+  history: PropTypes.shape({
+    goBack: PropTypes.func,
+    push: PropTypes.func,
+  }).isRequired,
+};

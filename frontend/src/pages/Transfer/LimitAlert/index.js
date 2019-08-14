@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
   Dialog,
   DialogTitle,
@@ -8,7 +7,6 @@ import {
   DialogContent,
   DialogContentText,
   Button,
-  Paper,
 } from '@material-ui/core';
 
 export default function LimitAlert({
@@ -52,3 +50,10 @@ export default function LimitAlert({
     </Dialog>
   );
 }
+
+LimitAlert.propTypes = {
+  open: PropTypes.bool.isRequired,
+  hasBalance: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  handleTransfer: PropTypes.func.isRequired,
+};

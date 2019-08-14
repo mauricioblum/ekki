@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import {
   Dialog,
@@ -40,3 +41,9 @@ export default function Receipt({ open, handleClose, destination }) {
     </Dialog>
   );
 }
+
+Receipt.propTypes = {
+  open: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  destination: PropTypes.string.isRequired,
+};

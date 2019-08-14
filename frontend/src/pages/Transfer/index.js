@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Typography,
   Grid,
   Button,
-  Select,
   MenuItem,
   TextField,
   InputAdornment,
 } from '@material-ui/core';
 import { AppContainer, Panel, ContactSelect } from './styles';
-import Toast from '../../components/Toast';
+import { Toast } from '../../components/Toast';
 import { Types as TrasferTypes } from '../../store/ducks/transfer';
-import { Types as UserTypes } from '../../store/ducks/user';
 import { NotificationStatus } from '../../services/NotificationService';
 import Receipt from './Receipt';
 import LimitAlert from './LimitAlert';
@@ -72,7 +71,7 @@ export default function Transfer({ history }) {
 
   useEffect(() => {
     if (amount <= 0) {
-      setAmount(0);
+      setAmount('');
       setDisabled(true);
     } else {
       setDisabled(false);
@@ -143,6 +142,7 @@ export default function Transfer({ history }) {
                 onChange={e => setAmount(e.target.value)}
                 label="Valor"
                 inputProps={{ step: 100 }}
+                // eslint-disable-next-line react/jsx-no-duplicate-props
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">R$</InputAdornment>
@@ -190,3 +190,9 @@ export default function Transfer({ history }) {
     </AppContainer>
   );
 }
+
+Transfer.propTypes = {
+  history: PropTypes.shape({
+    goBack: PropTypes.func,
+  }).isRequired,
+};

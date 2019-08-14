@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Typography,
@@ -10,7 +11,7 @@ import {
   TableRow,
   CircularProgress,
 } from '@material-ui/core';
-import Toast from '../../components/Toast';
+import { Toast } from '../../components/Toast';
 import { Types as UserTypes } from '../../store/ducks/user';
 import { NotificationStatus } from '../../services/NotificationService';
 
@@ -120,3 +121,9 @@ export default function Contacts({ history }) {
     </AppContainer>
   );
 }
+
+Contacts.propTypes = {
+  history: PropTypes.shape({
+    goBack: PropTypes.func,
+  }).isRequired,
+};

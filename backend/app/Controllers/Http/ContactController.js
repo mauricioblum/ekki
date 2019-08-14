@@ -46,6 +46,10 @@ class ContactController {
         owner = await User.query().whereRaw(`cpf = ${cpf}`).first()
       }
 
+      if (!owner) {
+        return response.status(400).send({ error: { message: 'Contato não encontrado!' } })
+      }
+
       const contact = new Contact()
 
       const user = await User.findOrFail(params.userId)
