@@ -67,15 +67,14 @@ export function* deleteUserContact(action) {
   const user = yield select(getUserState);
   try {
     yield call(api.delete, `/users/${user.id}/contacts/${action.id}`);
-
     const userAction = {
       cpf: user.cpf,
     };
     yield getUser(userAction);
-    showErrorToast('Contato removido com sucesso!');
+    showSuccessToast('Contato removido com sucesso!');
     yield put(UserActions.deleteUserContactSuccess());
   } catch (err) {
-    showErrorToast(`Erro: ${err.response.data.error.message}`);
+    showErrorToast('Erro ao remover o contato!');
     yield put(
       UserActions.deleteUserContactFailure('Erro ao remover o contato!')
     );
