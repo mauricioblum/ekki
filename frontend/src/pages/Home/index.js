@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Box,
   Typography,
@@ -24,6 +24,7 @@ export default function Home({ history }) {
   const [toastMessage, setToastMessage] = useState('');
   const [toastVariant, setToastVariant] = useState('success');
   const [loading, setLoading] = useState(false);
+  const user = useSelector(state => state.user);
   const dispatch = useDispatch();
 
   function handleCloseToast(event, reason) {
@@ -82,30 +83,44 @@ export default function Home({ history }) {
                 onChange={e => setInputCpf(e.target.value)}
               />
               <Box mt={4}>
-                <Button
-                  type="submit"
-                  variant="outlined"
-                  color="primary"
-                  fullWidth
-                  onClick={() => getUser(inputCpf)}
-                >
-                  Entrar
-                </Button>
-                <Box my={2}>
-                  <Button
-                    type="button"
-                    variant="outlined"
-                    color="primary"
-                    fullWidth
-                    onClick={() => setFormOpen(true)}
-                  >
-                    Novo Usuário? Cadastrar
-                  </Button>
-                </Box>
+                {!user.loading ? (
+                  <>
+                    <Button
+                      type="submit"
+                      variant="outlined"
+                      color="primary"
+                      fullWidth
+                      onClick={() => getUser(inputCpf)}
+                    >
+                      Entrar
+                    </Button>
+                    <Box my={2}>
+                      <Button
+                        type="button"
+                        variant="outlined"
+                        color="primary"
+                        fullWidth
+                        onClick={() => setFormOpen(true)}
+                      >
+                        Novo Usuário? Cadastrar
+                      </Button>
+                    </Box>
+                  </>
+                ) : (
+                  <Grid container justify="center" alignItems="center">
+                    <Grid item>
+                      <CircularProgress color="primary" />
+                    </Grid>
+                  </Grid>
+                )}
               </Box>
             </FormControl>
           ) : (
-            <CircularProgress color="primary" />
+            <Grid container justify="center" alignItems="center">
+              <Grid item>
+                <CircularProgress color="primary" />
+              </Grid>
+            </Grid>
           )}
         </LoginBox>
       </Grid>

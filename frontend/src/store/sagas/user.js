@@ -13,6 +13,7 @@ export function* loadUser(action) {
     yield put(UserActions.getUserSuccess(user.data[0]));
     action.history.push(`/user`);
   } catch (err) {
+    showErrorToast('Usuário não encontrado!');
     yield put(UserActions.getUserFailure('Erro ao capturar dados do usuário!'));
   }
 }
@@ -20,9 +21,14 @@ export function* loadUser(action) {
 export function* getUser(action) {
   try {
     const user = yield call(api.get, `/users?cpf=${action.cpf}`);
-    yield put(UserActions.getUserSuccess(user.data[0]));
-    action.history.push(`/user`);
+    if (user.data.length !== 0) {
+      yield put(UserActions.getUserSuccess(user.data[0]));
+      action.history.push(`/user`);
+    } else {
+      throw Error('Usuário não encontrado');
+    }
   } catch (err) {
+    showErrorToast('Usuário não encontrado!');
     yield put(UserActions.getUserFailure('Erro ao capturar dados do usuário!'));
   }
 }
