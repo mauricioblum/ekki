@@ -29,3 +29,7 @@ yarn install
 
 yarn start
 ```
+
+### Demo
+
+A demo is available online at: https://ekki-frontend.herokuapp.com/
