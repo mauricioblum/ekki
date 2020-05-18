@@ -1,9 +1,9 @@
-# Ekki
+# 💲 Ekki 💲
 
 Digital Wallet Full Stack NodeJS and React application
 
 
-## Installation and Run Instructions
+## Installation and Run Instructions 📃
 
 ### AdonisJS Node Backend
 
@@ -30,6 +30,6 @@ yarn install
 yarn start
 ```
 
-### Demo
+### Demo 💻
 
 A demo is available online at: https://ekki-frontend.herokuapp.com/
